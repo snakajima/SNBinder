@@ -1,23 +1,38 @@
-SNBinder is a client-side template engine implemented in JavaScript. Just like server-side template engines, it binds a view (HTML template) to a data (JavaScript object) and generate an HTML text. 
+SNBinder is a client-side template engine implemented in JavaScript. Just like server-side template engines, 
+it binds a view (HTML template) to a data (JavaScript object) and generate an HTML text. 
 
-For example,
+1. Initialization
 
-var template = "<p>Hello $(.name)!</p>";
-var user = { "name":"Leonardo da Vinci" };
-$('.body').htm(SNBinder.bind(template, user));
+SNBinder requires JQuery. JQuery must be loaded before SNBinder. 
+
+After loading both JQuery and SNBinder, the application must initialize SNBinder by calling it's init method like this:
+
+    $(document).ready(function() {
+        SNBinder.init({});
+    }
+
+The init method takes an optional parameter, which is described in the "Advanced Initialization" section below. 
+
+2. Binding
+
+To bind an HTML template to a JavaScript object, you need to call SNBinder.bind() method. For example,
+
+    var template = "<p>Hello $(.name)!</p>";
+    var user = { "name":"Leonardo da Vinci" };
+    $('.body').htm(SNBinder.bind(template, user));
 
 will replace the contents of the body tag with "<p>Hello Leonardo da Vinci!</p>". 
 
 If you want to apply the same template to multiple objects, it's more efficient to use a complied form. 
 
-var template = "<p>Hello $(.name)!</p>";
-var apply_template = SNBinder.compile(template);
-var user = { "name":"Leonardo da Vinci" };
-$('.body').htm(apply_template(user));
+    var template = "<p>Hello $(.name)!</p>";
+    var apply_template = SNBinder.compile(template);
+    var user = { "name":"Leonardo da Vinci" };
+    $('.body').htm(apply_template(user));
 
 It is also possible to apply it to an array of objects:
 
-var template = "<li>Hello $(.name)!</li>";
-var users = [{ "name":"Leonardo da Vinci" }, { "name":"Michelangelo di Lodovico Buonarroti Simoni" }, { "name":"LDonato di Niccolò di Betto Bard" }];
-$('.ul').htm(SNBinder.bind_rowset(template, users);
+    var template = "<li>Hello $(.name)!</li>";
+    var users = [{ "name":"Leonardo da Vinci" }, { "name":"Michelangelo di Lodovico Buonarroti Simoni" }, { "name":"LDonato di Niccolò di Betto Bard" }];
+    $('.ul').htm(SNBinder.bind_rowset(template, users);
 
