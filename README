@@ -1,6 +1,7 @@
 SNBinder is a client-side template engine implemented in JavaScript. Just like server-side template engines, 
 it binds a view (HTML template) to a data (JavaScript object) and generate an HTML text. 
 
+
 1. Initialization
 
 SNBinder requires JQuery. JQuery must be loaded before SNBinder. 
@@ -12,6 +13,7 @@ After loading both JQuery and SNBinder, the application must initialize SNBinder
     }
 
 The init method takes an optional parameter, which is described in the "Advanced Initialization" section below. 
+
 
 2. Binding
 
@@ -33,6 +35,36 @@ If you want to apply the same template to multiple objects, it's more efficient 
 It is also possible to apply it to an array of objects:
 
     var template = "<li>Hello $(.name)!</li>";
-    var users = [{ "name":"Leonardo da Vinci" }, { "name":"Michelangelo di Lodovico Buonarroti Simoni" }, { "name":"LDonato di Niccolò di Betto Bard" }];
+    var users = [
+        { "name":"Leonardo da Vinci" }, 
+        { "name":"Michelangelo di Lodovico Buonarroti Simoni" }, 
+        { "name":"LDonato di Niccolò di Betto Bard" }
+    ];
     $('.ul').htm(SNBinder.bind_rowset(template, users);
 
+
+3. Loading templates
+
+Although it is possible to hard-code HTML templates in JavaScript code like samples above, it is not a good
+practice to mix View and Controller (notice that JavaScript is activing as a Controller). SNBinder offers
+two helper functions that allows developers to load multiple templates in a single HTTP get. 
+
+    SNBinder.load_section(url, callback)
+    SNBinder.load_named_section(url, callback)
+    
+The load_section method loads a template bundle (an array of templates joined with "{%}") from the specified URL, 
+and calls the callback function with an array of templates. 
+
+The load_section method loads a named template bundle (set of named templates, where each name is specified with "{%}...{%}"), 
+and calls the callback function with a dictionary of templates. For example, assume the named template bundle has follwing
+contents and accessible at "/static/template.htm"
+
+    {%}main{%}
+    <p>Hello $(.name)!</p>
+
+The following code will load this template bundle, and performs the same view-data binding described in section 2. 
+
+    SNBinder.load_named_template("/static/templates.htm", function(sections) {
+        var user = { "name":"Leonardo da Vinci" };
+        $('.body').htm(SNBinder.bind(sections("main", user));
+    });
