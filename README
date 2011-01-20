@@ -1,0 +1,23 @@
+SNBinder is a client-side template engine implemented in JavaScript. Just like server-side template engines, it binds a view (HTML template) to a data (JavaScript object) and generate an HTML text. 
+
+For example,
+
+var template = "<p>Hello $(.name)!</p>";
+var user = { "name":"Leonardo da Vinci" };
+$('.body').htm(SNBinder.bind(template, user));
+
+will replace the contents of the body tag with "<p>Hello Leonardo da Vinci!</p>". 
+
+If you want to apply the same template to multiple objects, it's more efficient to use a complied form. 
+
+var template = "<p>Hello $(.name)!</p>";
+var apply_template = SNBinder.compile(template);
+var user = { "name":"Leonardo da Vinci" };
+$('.body').htm(apply_template(user));
+
+It is also possible to apply it to an array of objects:
+
+var template = "<li>Hello $(.name)!</li>";
+var users = [{ "name":"Leonardo da Vinci" }, { "name":"Michelangelo di Lodovico Buonarroti Simoni" }, { "name":"LDonato di Niccolò di Betto Bard" }];
+$('.ul').htm(SNBinder.bind_rowset(template, users);
+
