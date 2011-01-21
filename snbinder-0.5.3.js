@@ -1,11 +1,12 @@
 /*!
  * SNBinder JavaScript Library v0.5.3
- * http://satoshi.blogs.com
  *
- * Copyright (c) 2009 Satoshi Nakajima
+ * Copyright (c) 2009 Satoshi Nakajima (Twitter: @snakajima, Blog:http://satoshi.blogs.com/uie)
  * Licensed under the MIT license + "keep this comment block even if you modify it".
  *
- * Date: 01-20-2011 Published as snbinder-0.5.3.js
+ * History:
+ *  02-12-2010 Created for the project "Entertain LA" (http://entertainla.com)
+ *  01-20-2011 Published as snbinder-0.5.3.js
  */
 var SNBinder = (function() {
     var cache = {};
