@@ -57,7 +57,7 @@ var SNBinder = (function() {
         get: function(url, params, isJson, callback, _options) {
             var options  = {
                 bypass_cache: false,
-                cache_result: true,
+                cache_result: true
             };
             $.extend(options, _options); 
         
