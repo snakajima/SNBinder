@@ -167,6 +167,9 @@ var SNBinder = (function() {
             })();
         }, // end of post
         evaluate: function(json) {
+            if (typeof(json) == 'object') {
+                return json;
+            }            
             try {
                 var obj;
                 eval("obj=" + json);
