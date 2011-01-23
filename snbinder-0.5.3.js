@@ -17,6 +17,9 @@ var SNBinder = (function() {
         error: function(verb, url) {
             alert("The server is not accessible ("+verb+"):" + url);
         },
+        debug: {
+            delay: 200
+        },
         login: function() {
             alert("must be implemented by the application");
         }
@@ -77,10 +80,10 @@ var SNBinder = (function() {
                 (function() {
                     var retry = 0;
                     var _attempt = function() {
-                        if (debug.delay > 0 && handlers.isDebug()) {
+                        if (handlers.debug.delay > 0 && handlers.isDebug()) {
                             if (retry === 0) {
                                 retry++;
-                                window.setTimeout(_attempt, debug.delay);
+                                window.setTimeout(_attempt, handlers.debug.delay);
                                 return;
                             }
                         }
@@ -127,10 +130,10 @@ var SNBinder = (function() {
             (function() {
                 var retry = 0;
                 var _attempt = function() {
-                    if (debug.delay > 0 && /localhost:80/.test(window.location.href)) {
+                    if (handlers.debug.delay > 0 && handlers.isDebug()) {
                         if (retry === 0) {
                             retry++;
-                            window.setTimeout(_attempt, debug.delay);
+                            window.setTimeout(_attempt, handlers.debug.delay);
                             return;
                         }
                     }
