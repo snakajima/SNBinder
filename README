@@ -70,8 +70,8 @@ Although it is possible to hard-code HTML templates in JavaScript code like samp
 practice to mix View and Controller (notice that JavaScript is activing as a Controller). SNBinder offers
 two helper functions that allows developers to load multiple templates in a single HTTP GET. 
 
-    SNBinder.load_sections(url, callback)
-    SNBinder.load_named_sections(url, callback)
+    SNBinder.get_sections(url, callback)
+    SNBinder.get_named_sections(url, callback)
     
 The load_sections method loads a template bundle (an array of templates joined with "{%}") from the specified URL, 
 and calls the callback function with an array of templates. 
@@ -85,7 +85,7 @@ contents (a single template named "main") and accessible at "/static/template.ht
 
 The following code will load this template bundle, and performs the same view-data binding described in section 2. 
 
-    SNBinder.load_named_sections("/static/templates.htm", function(templates) {
+    SNBinder.get_named_sections("/static/templates.htm", function(templates) {
         var user = { "name":"Leonardo da Vinci" };
         $('.body').htm(SNBinder.bind(templates("main", user));
     });
@@ -107,7 +107,7 @@ SNBinder has a set of helper methods, which makes it easy to fetch data (Json ob
 For example, if "/user/info" returns the JSON object represents the user (such as {"name":"Leonardo da Vinci"}), 
 the example in previous section will become something like this:
 
-    SNBinder.load_named_sections("/static/templates.htm", function(templates) {
+    SNBinder.get_named_sections("/static/templates.htm", function(templates) {
         SNBinder.get("/user/info", nil, true, function(user) {
             $('.body').htm(SNBinder.bind(templates("main", user));
         });
