@@ -34,7 +34,7 @@ To bind an HTML template to a JavaScript object, you need to call SNBinder.bind(
 
     var template = "<p>Hello $(.name)!</p>";
     var user = { "name":"Leonardo da Vinci" };
-    $('.body').htm(SNBinder.bind(template, user));
+    $('.body').html(SNBinder.bind(template, user));
 
 will replace the contents of the body tag with "<p>Hello Leonardo da Vinci!</p>". 
 
@@ -44,8 +44,8 @@ If you want to apply the same template to multiple objects, it's more efficient 
     var apply_template = SNBinder.compile(template);
     var user1 = { "name":"Leonardo da Vinci" };
     var user2 = { "name":"Michelangelo di Lodovico Buonarroti Simoni" };
-    $('.div#user1').htm(apply_template(user1));
-    $('.div#user2').htm(apply_template(user2));
+    $('.div#user1').html(apply_template(user1));
+    $('.div#user2').html(apply_template(user2));
 
 It is also possible to bind a template to an array of objects:
 
@@ -55,7 +55,7 @@ It is also possible to bind a template to an array of objects:
         { "name":"Michelangelo di Lodovico Buonarroti Simoni" }, 
         { "name":"LDonato di Niccolò di Betto Bard" }
     ];
-    $('.ul').htm(SNBinder.bind_rowset(template, users);
+    $('.ul').html(SNBinder.bind_rowset(template, users);
     
 Following patterns in the template will be replaced. 
 
@@ -85,9 +85,9 @@ contents (a single template named "main") and accessible at "/static/template.ht
 
 The following code will load this template bundle, and performs the same view-data binding described in section 2. 
 
-    SNBinder.get_named_sections("/static/templates.htm", function(templates) {
+    SNBinder.get_named_sections("/static/templates.htm", null, function(templates) {
         var user = { "name":"Leonardo da Vinci" };
-        $('.body').htm(SNBinder.bind(templates("main", user));
+        $('.body').html(SNBinder.bind(templates("main", user));
     });
 
 
@@ -107,9 +107,9 @@ SNBinder has a set of helper methods, which makes it easy to fetch data (Json ob
 For example, if "/user/info" returns the JSON object represents the user (such as {"name":"Leonardo da Vinci"}), 
 the example in previous section will become something like this:
 
-    SNBinder.get_named_sections("/static/templates.htm", function(templates) {
-        SNBinder.get("/user/info", nil, true, function(user) {
-            $('.body').htm(SNBinder.bind(templates("main", user));
+    SNBinder.get_named_sections("/static/templates.htm", null, function(templates) {
+        SNBinder.get("/user/info", null, true, function(user) {
+            $('.body').html(SNBinder.bind(templates("main", user));
         });
     });
 
