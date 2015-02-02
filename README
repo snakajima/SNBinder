@@ -61,6 +61,7 @@ Following patterns in the template will be replaced.
 
     $(.foo) will be replaced by the value of property "foo" (escaped)
     $(_foo) will be replaced by the value of property "foo" (non-escaped)
+    $(+foo) will be replaced by the value of property "foo" (urlencode)
     $(index) will be replaced by the index (in case or bind_rowset)
 
 

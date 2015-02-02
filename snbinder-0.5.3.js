@@ -189,12 +189,16 @@ var SNBinder = (function() {
                        .replace(/>/g, '&gt;')
                        .replace(/\n/g, '<br />');
         },
+	urlencode: function(text) {
+	    return encodeURIComponent(text);
+	},
         compile: function(htm) {
             var _templatize = function(htm) {
                 return '"' + htm.replace(/\"/g, "'")
                                 .replace(/[\r\n]/g, " ")
                                 .replace(/\$\(index\)/g, '"+index+"')
                                 .replace(/\$\(\.([a-z0-9_\.]*)\)/gi, '"+SNBinder.escape(""+row.$1)+"')
+                                .replace(/\$\(\+([a-z0-9_\.]*)\)/gi, '"+SNBinder.urlencode(""+row.$1)+"')
                                 .replace(/\$\(\_([a-z0-9_\.]*)\)/gi, '"+row.$1+"')
                                 +'"';
             }; // "
