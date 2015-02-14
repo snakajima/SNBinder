@@ -156,7 +156,14 @@ var SNBinder = (function() {
                                 callback(data);
                             }
                         },
-                        error: function () {
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+			    var json = null;
+			    if(XMLHttpRequest.status == 401 && isJson){
+				 json = SNBinder.evaluate(XMLHttpRequest.responseText);
+                                if (json.login_required) {
+                                    return handlers.login(json);
+                                }
+			    }
                             if (retry<3) {
                                 retry++;
                                 _attempt();
