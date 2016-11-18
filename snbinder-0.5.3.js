@@ -190,7 +190,7 @@ var SNBinder = (function() {
             return {};
         },
         escape: function(text) { 
-            return text.replace(/&/g, '&amp;')
+            return String(text).replace(/&/g, '&amp;')
                        .replace(/'/g, '&#146;') //'
                        .replace(/</g, '&lt;')
                        .replace(/>/g, '&gt;')
