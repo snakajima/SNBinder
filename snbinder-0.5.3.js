@@ -199,14 +199,24 @@ var SNBinder = (function() {
 	urlencode: function(text) {
 	    return encodeURIComponent(text);
 	},
+	_value: function (obj, path) {
+	    const keys = path.split('.');
+
+	    const key = keys.shift();
+	    if (!obj.hasOwnProperty(key)) { return ""; }
+	    if (keys.length > 0) {
+		return SNBinder._value(obj[key], keys.join('.'));
+	    }
+	    return obj[key];
+	},
         compile: function(htm) {
             var _templatize = function(htm) {
                 return '"' + htm.replace(/\"/g, "'")
                                 .replace(/[\r\n]/g, " ")
                                 .replace(/\$\(index\)/g, '"+index+"')
-                                .replace(/\$\(\.([a-z0-9_\.]*)\)/gi, '"+SNBinder.escape(""+row.$1)+"')
-                                .replace(/\$\(\+([a-z0-9_\.]*)\)/gi, '"+SNBinder.urlencode(""+row.$1)+"')
-                                .replace(/\$\(\_([a-z0-9_\.]*)\)/gi, '"+row.$1+"')
+                                .replace(/\$\(\.([a-z0-9_\.]*)\)/gi, '"+SNBinder.escape(SNBinder._value(row, "$1"))+"')
+                                .replace(/\$\(\+([a-z0-9_\.]*)\)/gi, '"+SNBinder.urlencode(SNBinder._value(row, "$1"))+"')
+                                .replace(/\$\(\_([a-z0-9_\.]*)\)/gi, '"+SNBinder._value(row, "$1"))+"')
                                 +'"';
             }; // "
             var _func;
